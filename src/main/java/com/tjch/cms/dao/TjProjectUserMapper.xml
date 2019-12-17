@@ -1,0 +1,121 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.tjch.cms.dao.TjProjectUserMapper" >
+  <resultMap id="BaseResultMap" type="com.tjch.cms.pojo.TjProject" >
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="create_time" property="createTime" jdbcType="VARCHAR" />
+    <result column="pro_name" property="proName" jdbcType="VARCHAR" />
+    <result column="entrust_company" property="entrustCompany" jdbcType="VARCHAR" />
+    <result column="street" property="street" jdbcType="VARCHAR" />
+    <result column="pro_type" property="proType" jdbcType="VARCHAR" />
+    <result column="application_time" property="applicationTime" jdbcType="VARCHAR" />
+    <result column="pro_id" property="proId" jdbcType="VARCHAR" />
+    <result column="mapping_company" property="mappingCompany" jdbcType="VARCHAR" />
+    <result column="person_type" property="personType" jdbcType="VARCHAR" />
+    <result column="approach_time" property="approachTime" jdbcType="VARCHAR" />
+    <result column="pro_content" property="proContent" jdbcType="VARCHAR" />
+    <result column="img_path" property="imgPath" jdbcType="VARCHAR" />
+    <result column="img_name" property="imgName" jdbcType="VARCHAR" />
+    <result column="file_path" property="filePath" jdbcType="VARCHAR" />
+    <result column="file_name" property="fileName" jdbcType="VARCHAR" />
+    <result column="instance_id" property="instanceId" jdbcType="VARCHAR" />
+  </resultMap>
+
+  <select id="findAll" resultMap="BaseResultMap" parameterType="com.tjch.cms.model.TjProjectModel" >
+    select *
+    from tj_pro
+    <where>
+      <if test="createStartTime!=null and createStartTime!='' and createEndTime!=null and createEndTime!=''">
+        create_time between  #{createStartTime} and #{createEndTime}
+      </if>
+      <if test="proName!=null and proName!=''">
+       and  pro_name like  CONCAT('%',#{proName},'%')
+      </if>
+      <if test="entrustCompany!=null and entrustCompany!=''">
+        and  entrust_company like  CONCAT('%',#{entrustCompany},'%')
+      </if>
+      <if test="street!=null and street!=''">
+        and  street like  CONCAT('%',#{street},'%')
+      </if>
+      <if test="proType!=null and proType!=''">
+        and  pro_type =#{proType}
+      </if>
+      <if test="applicationStartTime!=null and applicationStartTime!='' and applicationEndTime!=null and applicationEndTime!='' ">
+        and  application_time between  #{applicationStartTime} and #{applicationEndTime}
+      </if>
+      <if test="instanceId!=null and instanceId!=''">
+        and instance_id =#{instanceId}
+      </if>
+    </where>
+    Limit ${(pageIndex - 1) * pageSize},${pageSize}
+  </select>
+  <select id="findAllCount" resultType="Long">
+    select count(*)
+    from tj_pro
+    <where>
+      <if test="createStartTime!=null and createStartTime!='' and createEndTime!=null and createEndTime!=''">
+        create_time between  #{createStartTime} and #{createEndTime}
+      </if>
+      <if test="proName!=null and proName!=''">
+        and  pro_name like  CONCAT('%',#{proName},'%')
+      </if>
+      <if test="entrustCompany!=null and entrustCompany!=''">
+        and  entrust_company like  CONCAT('%',#{entrustCompany},'%')
+      </if>
+      <if test="street!=null and street!=''">
+        and  street like  CONCAT('%',#{street},'%')
+      </if>
+      <if test="proType!=null and proType!=''">
+        and  pro_type =#{proType}
+      </if>
+      <if test="applicationStartTime!=null and applicationStartTime!='' and applicationEndTime!=null and applicationEndTime!='' ">
+        and  application_time between  #{applicationStartTime} and #{applicationEndTime}
+      </if>
+      <if test="instanceId!=null and instanceId!=''">
+        and instance_id =#{instanceId}
+      </if>
+    </where>
+  </select>
+  <delete id="deleteByIds" parameterType="Integer[]" >
+    delete from tj_pro
+    <where>
+      <if test="ids!=null and ids.length>0">
+        id  in
+        <foreach collection="ids" item="item" index="index" open="(" separator="," close=")">
+          #{item}
+        </foreach>
+      </if>
+    </where>
+  </delete>
+  <select id="findById" resultMap="BaseResultMap" parameterType="Integer" >
+    select *  from tj_pro where id =#{id}
+  </select>
+  <select id="findGroupProCount" resultType="com.tjch.cms.model.ProGroupModel" parameterType="com.tjch.cms.model.TjProjectModel" >
+    select  pro_name proName,count(pro_name) proCount
+    from tj_pro
+    <where>
+      <if test="createStartTime!=null and createStartTime!='' and createEndTime!=null and createEndTime!=''">
+        create_time between  #{createStartTime} and #{createEndTime}
+      </if>
+      <if test="proName!=null and proName!=''">
+        and  pro_name like  CONCAT('%',#{proName},'%')
+      </if>
+      <if test="entrustCompany!=null and entrustCompany!=''">
+        and  entrust_company like  CONCAT('%',#{entrustCompany},'%')
+      </if>
+      <if test="street!=null and street!=''">
+        and  street like  CONCAT('%',#{street},'%')
+      </if>
+      <if test="proType!=null and proType!=''">
+        and  pro_type =#{proType}
+      </if>
+      <if test="applicationStartTime!=null and applicationStartTime!='' and applicationEndTime!=null and applicationEndTime!='' ">
+        and  application_time between  #{applicationStartTime} and #{applicationEndTime}
+      </if>
+      <if test="instanceId!=null and instanceId!=''">
+        and instance_id =#{instanceId}
+      </if>
+    </where>
+    GROUP BY pro_name
+  </select>
+</mapper>

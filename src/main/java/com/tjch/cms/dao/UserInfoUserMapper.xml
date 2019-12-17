@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.tjch.cms.dao.UserInfoUserMapper" >
+    <resultMap id="BaseResultMap" type="com.tjch.cms.pojo.UsersInfo">
+        <id column="id" jdbcType="INTEGER" property="id" />
+        <result column="user_name" jdbcType="VARCHAR" property="userName" />
+        <result column="real_name" jdbcType="VARCHAR" property="realName" />
+        <result column="pass_word" jdbcType="VARCHAR" property="passWord" />
+        <result column="type_id" jdbcType="INTEGER" property="typeId" />
+        <result column="enable" jdbcType="INTEGER" property="enable" />
+    </resultMap>
+    <select id="selectLogin" resultMap="BaseResultMap" parameterType="com.tjch.cms.model.UserModel">
+        SELECT * FROM tj_users
+        where user_name=#{userName}
+    </select>
+    <select id="getUserInfo" resultMap="BaseResultMap" parameterType="String">
+        SELECT * FROM tj_users
+        where user_name =#{userName}
+    </select>
+    <select id="getUserInfoById" resultMap="BaseResultMap" parameterType="Integer">
+        SELECT * FROM  tj_users
+        where id =#{id}
+    </select>
+
+    <select id="selectAll" resultMap="BaseResultMap" parameterType="com.tjch.cms.model.UserModel">
+        SELECT id, user_name, real_name,
+        type_id, enable FROM  tj_users
+        <where>
+            <if test="userName!=null and userName!=''">
+                user_name LIKE CONCAT('%',#{userName},'%')
+            </if>
+            <if test="type!=0 and type!=null and type!=''">
+                and type_id =#{type}
+            </if>
+            <if test="enable!=null and enable!=''">
+                and enable =#{enable}
+            </if>
+        </where>
+    </select>
+    <update id="editPassWord" >
+        update  tj_users set user_password = #{password}
+        where id = #{id}
+    </update>
+    <update id="editUser" parameterType="com.tjch.cms.model.UserModel">
+        update  tj_users set
+        user_name = #{userName},
+      real_name = #{realName},
+      type_id = #{type},
+      enable = #{enable}
+        where id = #{id}
+    </update>
+    <update id="passUser" parameterType="Integer[]" >
+        update  tj_users set  enable = 1
+        <where>
+            <if test="id!=null and id.length>0">
+                id  in
+                <foreach collection="id" item="item" index="index" open="(" separator="," close=")">
+                    #{item}
+                </foreach>
+            </if>
+        </where>
+    </update>
+
+    <delete id="deleteByPrimaryKey" parameterType="Integer[]" >
+        delete from  tj_users
+        <where>
+            <if test="id!=null and id.length>0">
+                id  in
+                <foreach collection="id" item="item" index="index" open="(" separator="," close=")">
+                    #{item}
+                </foreach>
+            </if>
+        </where>
+    </delete>
+
+
+
+</mapper>

@@ -1,0 +1,235 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.tjch.cms.dao.TjProjectMapper" >
+  <resultMap id="BaseResultMap" type="com.tjch.cms.pojo.TjProject" >
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="create_time" property="createTime" jdbcType="VARCHAR" />
+    <result column="pro_name" property="proName" jdbcType="VARCHAR" />
+    <result column="entrust_company" property="entrustCompany" jdbcType="VARCHAR" />
+    <result column="street" property="street" jdbcType="VARCHAR" />
+    <result column="pro_type" property="proType" jdbcType="VARCHAR" />
+    <result column="application_time" property="applicationTime" jdbcType="VARCHAR" />
+    <result column="pro_id" property="proId" jdbcType="VARCHAR" />
+    <result column="mapping_company" property="mappingCompany" jdbcType="VARCHAR" />
+    <result column="person_type" property="personType" jdbcType="VARCHAR" />
+    <result column="approach_time" property="approachTime" jdbcType="VARCHAR" />
+    <result column="pro_content" property="proContent" jdbcType="VARCHAR" />
+    <result column="img_path" property="imgPath" jdbcType="VARCHAR" />
+    <result column="img_name" property="imgName" jdbcType="VARCHAR" />
+    <result column="file_path" property="filePath" jdbcType="VARCHAR" />
+    <result column="file_name" property="fileName" jdbcType="VARCHAR" />
+    <result column="instance_id" property="instanceId" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    id, create_time, pro_name, entrust_company, street, pro_type, application_time, pro_id, 
+    mapping_company, person_type, approach_time, pro_content, img_path, img_name, file_path, 
+    file_name, instance_id
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from tj_pro
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from tj_pro
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.tjch.cms.pojo.TjProject" >
+    insert into tj_pro (id, create_time, pro_name, 
+      entrust_company, street, pro_type, 
+      application_time, pro_id, mapping_company, 
+      person_type, approach_time, pro_content, 
+      img_path, img_name, file_path, 
+      file_name, instance_id)
+    values (#{id,jdbcType=INTEGER}, #{createTime,jdbcType=VARCHAR}, #{proName,jdbcType=VARCHAR}, 
+      #{entrustCompany,jdbcType=VARCHAR}, #{street,jdbcType=VARCHAR}, #{proType,jdbcType=VARCHAR}, 
+      #{applicationTime,jdbcType=VARCHAR}, #{proId,jdbcType=VARCHAR}, #{mappingCompany,jdbcType=VARCHAR}, 
+      #{personType,jdbcType=VARCHAR}, #{approachTime,jdbcType=VARCHAR}, #{proContent,jdbcType=VARCHAR}, 
+      #{imgPath,jdbcType=VARCHAR}, #{imgName,jdbcType=VARCHAR}, #{filePath,jdbcType=VARCHAR}, 
+      #{fileName,jdbcType=VARCHAR}, #{instanceId,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.tjch.cms.pojo.TjProject" >
+    insert into tj_pro
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="createTime != null" >
+        create_time,
+      </if>
+      <if test="proName != null" >
+        pro_name,
+      </if>
+      <if test="entrustCompany != null" >
+        entrust_company,
+      </if>
+      <if test="street != null" >
+        street,
+      </if>
+      <if test="proType != null" >
+        pro_type,
+      </if>
+      <if test="applicationTime != null" >
+        application_time,
+      </if>
+      <if test="proId != null" >
+        pro_id,
+      </if>
+      <if test="mappingCompany != null" >
+        mapping_company,
+      </if>
+      <if test="personType != null" >
+        person_type,
+      </if>
+      <if test="approachTime != null" >
+        approach_time,
+      </if>
+      <if test="proContent != null" >
+        pro_content,
+      </if>
+      <if test="imgPath != null" >
+        img_path,
+      </if>
+      <if test="imgName != null" >
+        img_name,
+      </if>
+      <if test="filePath != null" >
+        file_path,
+      </if>
+      <if test="fileName != null" >
+        file_name,
+      </if>
+      <if test="instanceId != null" >
+        instance_id,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="createTime != null" >
+        #{createTime,jdbcType=VARCHAR},
+      </if>
+      <if test="proName != null" >
+        #{proName,jdbcType=VARCHAR},
+      </if>
+      <if test="entrustCompany != null" >
+        #{entrustCompany,jdbcType=VARCHAR},
+      </if>
+      <if test="street != null" >
+        #{street,jdbcType=VARCHAR},
+      </if>
+      <if test="proType != null" >
+        #{proType,jdbcType=VARCHAR},
+      </if>
+      <if test="applicationTime != null" >
+        #{applicationTime,jdbcType=VARCHAR},
+      </if>
+      <if test="proId != null" >
+        #{proId,jdbcType=VARCHAR},
+      </if>
+      <if test="mappingCompany != null" >
+        #{mappingCompany,jdbcType=VARCHAR},
+      </if>
+      <if test="personType != null" >
+        #{personType,jdbcType=VARCHAR},
+      </if>
+      <if test="approachTime != null" >
+        #{approachTime,jdbcType=VARCHAR},
+      </if>
+      <if test="proContent != null" >
+        #{proContent,jdbcType=VARCHAR},
+      </if>
+      <if test="imgPath != null" >
+        #{imgPath,jdbcType=VARCHAR},
+      </if>
+      <if test="imgName != null" >
+        #{imgName,jdbcType=VARCHAR},
+      </if>
+      <if test="filePath != null" >
+        #{filePath,jdbcType=VARCHAR},
+      </if>
+      <if test="fileName != null" >
+        #{fileName,jdbcType=VARCHAR},
+      </if>
+      <if test="instanceId != null" >
+        #{instanceId,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.tjch.cms.pojo.TjProject" >
+    update tj_pro
+    <set >
+      <if test="createTime != null" >
+        create_time = #{createTime,jdbcType=VARCHAR},
+      </if>
+      <if test="proName != null" >
+        pro_name = #{proName,jdbcType=VARCHAR},
+      </if>
+      <if test="entrustCompany != null" >
+        entrust_company = #{entrustCompany,jdbcType=VARCHAR},
+      </if>
+      <if test="street != null" >
+        street = #{street,jdbcType=VARCHAR},
+      </if>
+      <if test="proType != null" >
+        pro_type = #{proType,jdbcType=VARCHAR},
+      </if>
+      <if test="applicationTime != null" >
+        application_time = #{applicationTime,jdbcType=VARCHAR},
+      </if>
+      <if test="proId != null" >
+        pro_id = #{proId,jdbcType=VARCHAR},
+      </if>
+      <if test="mappingCompany != null" >
+        mapping_company = #{mappingCompany,jdbcType=VARCHAR},
+      </if>
+      <if test="personType != null" >
+        person_type = #{personType,jdbcType=VARCHAR},
+      </if>
+      <if test="approachTime != null" >
+        approach_time = #{approachTime,jdbcType=VARCHAR},
+      </if>
+      <if test="proContent != null" >
+        pro_content = #{proContent,jdbcType=VARCHAR},
+      </if>
+      <if test="imgPath != null" >
+        img_path = #{imgPath,jdbcType=VARCHAR},
+      </if>
+      <if test="imgName != null" >
+        img_name = #{imgName,jdbcType=VARCHAR},
+      </if>
+      <if test="filePath != null" >
+        file_path = #{filePath,jdbcType=VARCHAR},
+      </if>
+      <if test="fileName != null" >
+        file_name = #{fileName,jdbcType=VARCHAR},
+      </if>
+      <if test="instanceId != null" >
+        instance_id = #{instanceId,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.tjch.cms.pojo.TjProject" >
+    update tj_pro
+    set create_time = #{createTime,jdbcType=VARCHAR},
+      pro_name = #{proName,jdbcType=VARCHAR},
+      entrust_company = #{entrustCompany,jdbcType=VARCHAR},
+      street = #{street,jdbcType=VARCHAR},
+      pro_type = #{proType,jdbcType=VARCHAR},
+      application_time = #{applicationTime,jdbcType=VARCHAR},
+      pro_id = #{proId,jdbcType=VARCHAR},
+      mapping_company = #{mappingCompany,jdbcType=VARCHAR},
+      person_type = #{personType,jdbcType=VARCHAR},
+      approach_time = #{approachTime,jdbcType=VARCHAR},
+      pro_content = #{proContent,jdbcType=VARCHAR},
+      img_path = #{imgPath,jdbcType=VARCHAR},
+      img_name = #{imgName,jdbcType=VARCHAR},
+      file_path = #{filePath,jdbcType=VARCHAR},
+      file_name = #{fileName,jdbcType=VARCHAR},
+      instance_id = #{instanceId,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+</mapper>
